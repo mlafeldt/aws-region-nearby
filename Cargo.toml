@@ -1,0 +1,8 @@
+[package]
+name = "aws-region-nearby"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+geoutils = "0.4"
+ordered-float = "2"
