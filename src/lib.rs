@@ -2,8 +2,9 @@ use geoutils::Location;
 use ordered_float::OrderedFloat;
 
 #[derive(Debug, Clone, Copy)]
-pub struct AwsRegion {
+struct AwsRegion {
     name: &'static str,
+    #[allow(dead_code)]
     iata_code: &'static str,
     latitude: f64,
     longitude: f64,
