@@ -51,8 +51,7 @@ mod tests {
         let region_near_hamburg = find_region_nearby(53.5511, 9.9937);
         assert_eq!(region_near_hamburg, "eu-central-1");
 
-        // FIXME: test fails for some reason
-        let region_near_sf = find_region_nearby(37.7749, 122.4194);
+        let region_near_sf = find_region_nearby(37.7749, -122.4194);
         assert_eq!(region_near_sf, "us-east-1");
     }
 }
