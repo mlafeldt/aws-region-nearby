@@ -34,9 +34,7 @@ pub fn find_region_nearby(latitude: f64, longitude: f64) -> String {
         .iter()
         .min_by_key(|region| {
             let dst = Location::new(region.latitude, region.longitude);
-            let distance = src.haversine_distance_to(&dst).meters();
-            dbg!(region.name, distance / 1000.0);
-            OrderedFloat(distance)
+            OrderedFloat(src.haversine_distance_to(&dst).meters())
         })
         .unwrap();
 
