@@ -8,7 +8,7 @@ pub async fn main(req: Request, env: Env) -> Result<Response> {
         .get_async("/", |req, _ctx| async move {
             let (latitude, longitude) = req.cf().coordinates().unwrap();
             let region = find_region_nearby(latitude, longitude);
-            Response::ok(region)
+            Response::from_json(&region)
         })
         .run(req, env)
         .await
