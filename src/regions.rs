@@ -11,6 +11,7 @@ pub struct AwsRegion {
     pub longitude: f64,
 }
 
+// Region data taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
 pub const AWS_REGIONS: [AwsRegion; 26] = [
     AwsRegion {
         name: "us-east-1",
