@@ -1,0 +1,15 @@
+[package]
+name = "aws-region-nearby-worker"
+version = "0.0.1"
+description = "Cloudflare Worker that reports the nearest AWS region"
+authors = ["Mathias Lafeldt <mathias.lafeldt@gmail.com>"]
+license = "MIT OR Apache-2.0"
+edition = "2021"
+publish = false
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+aws-region-nearby = { path = ".." }
+worker = "0.0.7"
