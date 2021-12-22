@@ -7,8 +7,8 @@ pub struct AwsRegion {
     // pub state: &'static str,
     pub country: &'static str,
     pub country_code: &'static str,
-    pub latitude: f32,
-    pub longitude: f32,
+    pub latitude: f64,
+    pub longitude: f64,
 }
 
 pub const AWS_REGIONS: [AwsRegion; 26] = [

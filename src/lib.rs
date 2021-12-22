@@ -4,8 +4,11 @@ use ordered_float::OrderedFloat;
 mod regions;
 use regions::{AwsRegion, AWS_REGIONS};
 
-pub fn find_region_nearby(latitude: f32, longitude: f32) -> AwsRegion {
-    let src = Location::new(latitude, longitude);
+pub fn find_region_nearby<T>(latitude: T, longitude: T) -> AwsRegion
+where
+    T: Into<f64>,
+{
+    let src = Location::new(latitude.into(), longitude.into());
 
     *AWS_REGIONS
         .iter()
