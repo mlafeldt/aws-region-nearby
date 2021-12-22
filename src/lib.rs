@@ -6,8 +6,8 @@ struct AwsRegion {
     name: &'static str,
     #[allow(dead_code)]
     iata_code: &'static str,
-    latitude: f64,
-    longitude: f64,
+    latitude: f32,
+    longitude: f32,
 }
 
 // Values from https://github.com/tobilg/aws-edge-locations#json-lookup
@@ -27,7 +27,7 @@ const EU_CENTRAL_1: AwsRegion = AwsRegion {
 
 const AWS_REGIONS: [AwsRegion; 2] = [US_EAST_1, EU_CENTRAL_1];
 
-pub fn find_region_nearby(latitude: f64, longitude: f64) -> String {
+pub fn find_region_nearby(latitude: f32, longitude: f32) -> String {
     let src = Location::new(latitude, longitude);
 
     let region = AWS_REGIONS
