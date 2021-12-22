@@ -1,31 +1,8 @@
 use geoutils::Location;
 use ordered_float::OrderedFloat;
 
-#[derive(Debug, Clone, Copy)]
-struct AwsRegion {
-    name: &'static str,
-    #[allow(dead_code)]
-    iata_code: &'static str,
-    latitude: f32,
-    longitude: f32,
-}
-
-// Values from https://github.com/tobilg/aws-edge-locations#json-lookup
-
-const US_EAST_1: AwsRegion = AwsRegion {
-    name: "us-east-1",
-    iata_code: "IAD",
-    latitude: 38.9445,
-    longitude: -77.4558029,
-};
-const EU_CENTRAL_1: AwsRegion = AwsRegion {
-    name: "eu-central-1",
-    iata_code: "FRA",
-    latitude: 50.033333,
-    longitude: 8.570556,
-};
-
-const AWS_REGIONS: [AwsRegion; 2] = [US_EAST_1, EU_CENTRAL_1];
+mod regions;
+use regions::AWS_REGIONS;
 
 pub fn find_region_nearby(latitude: f32, longitude: f32) -> String {
     let src = Location::new(latitude, longitude);
