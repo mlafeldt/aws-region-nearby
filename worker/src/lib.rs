@@ -1,3 +1,7 @@
+#![deny(clippy::all, clippy::nursery)]
+#![allow(clippy::future_not_send)]
+#![deny(nonstandard_style, rust_2018_idioms)]
+
 use worker::*;
 
 use aws_region_nearby::find_region_nearby;

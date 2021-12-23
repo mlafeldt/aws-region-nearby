@@ -1,3 +1,6 @@
+#![deny(clippy::all, clippy::nursery)]
+#![deny(nonstandard_style, rust_2018_idioms)]
+
 use geoutils::Location;
 use ordered_float::OrderedFloat;
 
