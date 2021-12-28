@@ -9,4 +9,3 @@ edition = "2021"
 [dependencies]
 geoutils = "0.4"
 ordered-float = "2"
-serde = { version = "1", features = ["derive"] }
