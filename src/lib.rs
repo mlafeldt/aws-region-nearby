@@ -7,10 +7,7 @@ use ordered_float::OrderedFloat;
 mod regions;
 use regions::{AwsRegion, AWS_REGIONS};
 
-pub fn find_region_nearby<T>(latitude: T, longitude: T) -> AwsRegion
-where
-    T: Into<f64>,
-{
+pub fn find_region_nearby<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
     let src = Location::new(latitude.into(), longitude.into());
 
     *AWS_REGIONS
@@ -25,13 +22,61 @@ where
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
+
+    struct Test {
+        city: &'static str,
+        latitude: f64,
+        longitude: f64,
+        region: &'static str,
+    }
+
+    fn tests() -> Vec<Test> {
+        vec![
+            Test {
+                city: "Hamburg",
+                latitude: 53.5511,
+                longitude: 9.9937,
+                region: "eu-central-1",
+            },
+            Test {
+                city: "Manchester",
+                latitude: 53.4808,
+                longitude: -2.2426,
+                region: "eu-west-2",
+            },
+            Test {
+                city: "Las Vegas",
+                latitude: 36.1699,
+                longitude: -115.1398,
+                region: "us-west-1",
+            },
+            Test {
+                city: "Boston",
+                latitude: 42.3601,
+                longitude: -71.0589,
+                region: "ca-central-1",
+            },
+            Test {
+                city: "Kyoto",
+                latitude: 35.0116,
+                longitude: 135.7681,
+                region: "ap-northeast-3",
+            },
+            Test {
+                city: "Cairo",
+                latitude: 30.0444,
+                longitude: 31.2357,
+                region: "me-south-1",
+            },
+        ]
+    }
 
     #[test]
-    fn it_works() {
-        let region_near_hamburg = find_region_nearby(53.5511, 9.9937);
-        assert_eq!(region_near_hamburg.name, "eu-central-1");
-
-        let region_near_sf = find_region_nearby(37.7749, -122.4194);
-        assert_eq!(region_near_sf.name, "us-west-1");
+    fn test_find_region_nearby() {
+        for t in tests().iter() {
+            let region = find_region_nearby(t.latitude, t.longitude);
+            assert_eq!(region.name, t.region, "{}", t.city);
+        }
     }
 }
