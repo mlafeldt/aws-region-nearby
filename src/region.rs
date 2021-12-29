@@ -63,7 +63,7 @@ impl AwsRegion {
         REGIONS.iter().copied()
     }
 
-    pub const fn name(&self) -> &str {
+    pub const fn name(&self) -> &'static str {
         match *self {
             AwsRegion::AfSouth1 => "af-south-1",
             AwsRegion::ApEast1 => "ap-east-1",
