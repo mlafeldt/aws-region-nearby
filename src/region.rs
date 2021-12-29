@@ -1,7 +1,8 @@
-use strum::{Display, EnumIter, EnumProperty, EnumString};
+use geoutils::Location;
+use strum::{Display, EnumIter, EnumProperty, EnumString, IntoStaticStr};
 
 // Region data taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
-#[derive(Debug, PartialEq, Display, EnumIter, EnumProperty, EnumString)]
+#[derive(Debug, PartialEq, Display, EnumIter, EnumProperty, EnumString, IntoStaticStr)]
 pub enum AwsRegion {
     #[strum(
         serialize = "af-south-1",
@@ -288,4 +289,34 @@ pub enum AwsRegion {
         )
     )]
     UsGovWest1,
+}
+
+impl AwsRegion {
+    pub fn name(&self) -> &'static str {
+        self.into()
+    }
+
+    pub fn city(&self) -> &'static str {
+        self.get_str("city").unwrap()
+    }
+
+    pub fn country(&self) -> &'static str {
+        self.get_str("country").unwrap()
+    }
+
+    pub fn latitude(&self) -> f64 {
+        self.get_str("latitude").unwrap().parse::<f64>().unwrap()
+    }
+
+    pub fn longitude(&self) -> f64 {
+        self.get_str("longitude").unwrap().parse::<f64>().unwrap()
+    }
+
+    pub fn location(&self) -> Location {
+        Location::new(self.latitude(), self.longitude())
+    }
+
+    pub fn distance_to(&self, to: &Location) -> f64 {
+        self.location().haversine_distance_to(to).meters()
+    }
 }
