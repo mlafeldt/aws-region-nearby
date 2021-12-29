@@ -1,319 +1,129 @@
 use geoutils::Location;
-use strum::{Display, EnumIter, EnumProperty, EnumString, IntoStaticStr};
 
-// Region data taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
-#[derive(Debug, PartialEq, Display, EnumIter, EnumProperty, EnumString, IntoStaticStr)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub enum AwsRegion {
-    #[strum(
-        serialize = "af-south-1",
-        props(
-            city = "Cape Town",
-            country = "South Africa",
-            latitude = "-33.9648017883",
-            longitude = "18.6016998291"
-        )
-    )]
     AfSouth1,
-
-    #[strum(
-        serialize = "ap-east-1",
-        props(
-            city = "Hong Kong",
-            country = "China",
-            latitude = "22.308901",
-            longitude = "113.915001"
-        )
-    )]
     ApEast1,
-
-    #[strum(
-        serialize = "ap-northeast-1",
-        props(
-            city = "Tokyo",
-            country = "Japan",
-            latitude = "35.764702",
-            longitude = "140.386002"
-        )
-    )]
     ApNortheast1,
-
-    #[strum(
-        serialize = "ap-northeast-2",
-        props(
-            city = "Seoul",
-            country = "South Korea",
-            latitude = "37.46910095214844",
-            longitude = "126.45099639892578"
-        )
-    )]
     ApNortheast2,
-
-    #[strum(
-        serialize = "ap-northeast-3",
-        props(
-            city = "Osaka",
-            country = "Japan",
-            latitude = "34.42729949951172",
-            longitude = "135.24400329589844"
-        )
-    )]
     ApNortheast3,
-
-    #[strum(
-        serialize = "ap-south-1",
-        props(
-            city = "Mumbai",
-            country = "India",
-            latitude = "19.0886993408",
-            longitude = "72.8678970337"
-        )
-    )]
     ApSouth1,
-
-    #[strum(
-        serialize = "ap-southeast-1",
-        props(
-            city = "Singapore",
-            country = "Singapore",
-            latitude = "1.35019",
-            longitude = "103.994003"
-        )
-    )]
     ApSoutheast1,
-
-    #[strum(
-        serialize = "ap-southeast-2",
-        props(
-            city = "Sydney",
-            country = "Australia",
-            latitude = "-33.94609832763672",
-            longitude = "151.177001953125"
-        )
-    )]
     ApSoutheast2,
-
-    #[strum(
-        serialize = "ap-southeast-3",
-        props(
-            city = "Jakarta",
-            country = "Indonesia",
-            latitude = "-6.125556",
-            longitude = "106.655833"
-        )
-    )]
     ApSoutheast3,
-
-    #[strum(
-        serialize = "ca-central-1",
-        props(
-            city = "Montreal",
-            country = "Canada",
-            latitude = "45.470556",
-            longitude = "-73.740833"
-        )
-    )]
     CaCentral1,
-
-    #[strum(
-        serialize = "cn-north-1",
-        props(
-            city = "Beijing",
-            country = "China",
-            latitude = "40.080101013183594",
-            longitude = "116.58499908447266"
-        )
-    )]
     CnNorth1,
-
-    #[strum(
-        serialize = "cn-northwest-1",
-        props(
-            city = "Yinchuan",
-            country = "China",
-            latitude = "38.321667",
-            longitude = "106.3925"
-        )
-    )]
     CnNorthwest1,
-
-    #[strum(
-        serialize = "eu-central-1",
-        props(
-            city = "Frankfurt",
-            country = "Germany",
-            latitude = "50.033333",
-            longitude = "8.570556"
-        )
-    )]
     EuCentral1,
-
-    #[strum(
-        serialize = "eu-north-1",
-        props(
-            city = "Stockholm",
-            country = "Sweden",
-            latitude = "59.651901245117",
-            longitude = "17.918600082397"
-        )
-    )]
     EuNorth1,
-
-    #[strum(
-        serialize = "eu-south-1",
-        props(
-            city = "Milan",
-            country = "Italy",
-            latitude = "45.6306",
-            longitude = "8.72811"
-        )
-    )]
     EuSouth1,
-
-    #[strum(
-        serialize = "eu-west-1",
-        props(
-            city = "Dublin",
-            country = "Ireland",
-            latitude = "53.421299",
-            longitude = "-6.27007"
-        )
-    )]
     EuWest1,
-
-    #[strum(
-        serialize = "eu-west-2",
-        props(
-            city = "London",
-            country = "England",
-            latitude = "51.4775",
-            longitude = "-0.461389"
-        )
-    )]
     EuWest2,
-
-    #[strum(
-        serialize = "eu-west-3",
-        props(
-            city = "Paris",
-            country = "France",
-            latitude = "49.012798",
-            longitude = "2.55"
-        )
-    )]
     EuWest3,
-
-    #[strum(
-        serialize = "me-south-1",
-        props(
-            city = "Manama",
-            country = "Bahrain",
-            latitude = "26.27079963684082",
-            longitude = "50.63359832763672"
-        )
-    )]
     MeSouth1,
-
-    #[strum(
-        serialize = "sa-east-1",
-        props(
-            city = "Sao Paulo",
-            country = "Brazil",
-            latitude = "-23.435556",
-            longitude = "-46.473056"
-        )
-    )]
     SaEast1,
-
-    #[strum(
-        serialize = "us-east-1",
-        props(
-            city = "Ashburn, Virginia",
-            country = "United States",
-            latitude = "38.9445",
-            longitude = "-77.4558029"
-        )
-    )]
     UsEast1,
-
-    #[strum(
-        serialize = "us-east-2",
-        props(
-            city = "Columbus, Ohio",
-            country = "United States",
-            latitude = "39.958993960575775",
-            longitude = "-83.00219086148725"
-        )
-    )]
     UsEast2,
-
-    #[strum(
-        serialize = "us-west-1",
-        props(
-            city = "San Francisco, California",
-            country = "United States",
-            latitude = "37.61899948120117",
-            longitude = "-122.375"
-        )
-    )]
     UsWest1,
-
-    #[strum(
-        serialize = "us-west-2",
-        props(
-            city = "Hillsboro, Oregon",
-            country = "United States",
-            latitude = "45.540394",
-            longitude = "-122.949825"
-        )
-    )]
     UsWest2,
-
-    #[strum(
-        serialize = "us-gov-east-1",
-        props(
-            city = "Ashburn, Virginia",
-            country = "United States",
-            latitude = "38.9445",
-            longitude = "-77.4558029"
-        )
-    )]
     UsGovEast1,
-
-    #[strum(
-        serialize = "us-gov-west-1",
-        props(
-            city = "San Francisco, California",
-            country = "United States",
-            latitude = "37.61899948120117",
-            longitude = "-122.375"
-        )
-    )]
     UsGovWest1,
 }
 
 impl AwsRegion {
-    pub fn name(&self) -> &'static str {
-        self.into()
+    pub fn iter() -> impl Iterator<Item = Self> {
+        const REGIONS: [AwsRegion; 26] = [
+            AwsRegion::AfSouth1,
+            AwsRegion::ApEast1,
+            AwsRegion::ApNortheast1,
+            AwsRegion::ApNortheast2,
+            AwsRegion::ApNortheast3,
+            AwsRegion::ApSouth1,
+            AwsRegion::ApSoutheast1,
+            AwsRegion::ApSoutheast2,
+            AwsRegion::ApSoutheast3,
+            AwsRegion::CaCentral1,
+            AwsRegion::CnNorth1,
+            AwsRegion::CnNorthwest1,
+            AwsRegion::EuCentral1,
+            AwsRegion::EuNorth1,
+            AwsRegion::EuSouth1,
+            AwsRegion::EuWest1,
+            AwsRegion::EuWest2,
+            AwsRegion::EuWest3,
+            AwsRegion::MeSouth1,
+            AwsRegion::SaEast1,
+            AwsRegion::UsEast1,
+            AwsRegion::UsEast2,
+            AwsRegion::UsWest1,
+            AwsRegion::UsWest2,
+            AwsRegion::UsGovEast1,
+            AwsRegion::UsGovWest1,
+        ];
+        REGIONS.iter().copied()
     }
 
-    pub fn city(&self) -> &'static str {
-        self.get_str("city").unwrap()
+    pub const fn name(&self) -> &str {
+        match *self {
+            AwsRegion::AfSouth1 => "af-south-1",
+            AwsRegion::ApEast1 => "ap-east-1",
+            AwsRegion::ApNortheast1 => "ap-northeast-1",
+            AwsRegion::ApNortheast2 => "ap-northeast-2",
+            AwsRegion::ApNortheast3 => "ap-northeast-3",
+            AwsRegion::ApSouth1 => "ap-south-1",
+            AwsRegion::ApSoutheast1 => "ap-southeast-1",
+            AwsRegion::ApSoutheast2 => "ap-southeast-2",
+            AwsRegion::ApSoutheast3 => "ap-southeast-3",
+            AwsRegion::CaCentral1 => "ca-central-1",
+            AwsRegion::CnNorth1 => "cn-north-1",
+            AwsRegion::CnNorthwest1 => "cn-northwest-1",
+            AwsRegion::EuCentral1 => "eu-central-1",
+            AwsRegion::EuNorth1 => "eu-north-1",
+            AwsRegion::EuSouth1 => "eu-south-1",
+            AwsRegion::EuWest1 => "eu-west-1",
+            AwsRegion::EuWest2 => "eu-west-2",
+            AwsRegion::EuWest3 => "eu-west-3",
+            AwsRegion::MeSouth1 => "me-south-1",
+            AwsRegion::SaEast1 => "sa-east-1",
+            AwsRegion::UsEast1 => "us-east-1",
+            AwsRegion::UsEast2 => "us-east-2",
+            AwsRegion::UsWest1 => "us-west-1",
+            AwsRegion::UsWest2 => "us-west-2",
+            AwsRegion::UsGovEast1 => "us-gov-east-1",
+            AwsRegion::UsGovWest1 => "us-gov-west-1",
+        }
     }
 
-    pub fn country(&self) -> &'static str {
-        self.get_str("country").unwrap()
-    }
-
-    pub fn latitude(&self) -> f64 {
-        self.get_str("latitude").unwrap().parse::<f64>().unwrap()
-    }
-
-    pub fn longitude(&self) -> f64 {
-        self.get_str("longitude").unwrap().parse::<f64>().unwrap()
-    }
-
+    // Coordinates taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
     pub fn location(&self) -> Location {
-        Location::new(self.latitude(), self.longitude())
+        match *self {
+            AwsRegion::AfSouth1 => Location::new(-33.9648017883, 18.6016998291), // Cape Town, South Africa
+            AwsRegion::ApEast1 => Location::new(22.308901, 113.915001),          // Hong Kong, China
+            AwsRegion::ApNortheast1 => Location::new(35.764702, 140.386002),     // Tokyo, Japan
+            AwsRegion::ApNortheast2 => Location::new(37.46910095214844, 126.45099639892578), // Seoul, South Korea
+            AwsRegion::ApNortheast3 => Location::new(34.42729949951172, 135.24400329589844), // Osaka, Japan
+            AwsRegion::ApSouth1 => Location::new(19.0886993408, 72.8678970337),  // Mumbai, India
+            AwsRegion::ApSoutheast1 => Location::new(1.35019, 103.994003),       // Singapore
+            AwsRegion::ApSoutheast2 => Location::new(-33.94609832763672, 151.177001953125), // Syndney, Australia
+            AwsRegion::ApSoutheast3 => Location::new(-6.125556, 106.655833),     // Jakarta, Indonesia
+            AwsRegion::CaCentral1 => Location::new(45.470556, -73.740833),       // Montreal, Canada
+            AwsRegion::CnNorth1 => Location::new(40.080101013183594, 116.58499908447266), // Beijing, China
+            AwsRegion::CnNorthwest1 => Location::new(38.321667, 106.3925),       // Yinchuan, China
+            AwsRegion::EuCentral1 => Location::new(50.033333, 8.570556),         // Frankfurt, Germany
+            AwsRegion::EuNorth1 => Location::new(59.651901245117, 17.918600082397), // Stockholm, Sweden
+            AwsRegion::EuSouth1 => Location::new(45.6306, 8.72811),              // Milan, Italy
+            AwsRegion::EuWest1 => Location::new(53.421299, -6.27007),            // Dublin, Ireland
+            AwsRegion::EuWest2 => Location::new(51.4775, -0.461389),             // London, United Kingdom
+            AwsRegion::EuWest3 => Location::new(49.012798, 2.55),                // Paris, France
+            AwsRegion::MeSouth1 => Location::new(26.27079963684082, 50.63359832763672), // Manama, Bahrain
+            AwsRegion::SaEast1 => Location::new(-23.435556, -46.473056),         // Sao Paulo, Brazil
+            AwsRegion::UsEast1 => Location::new(38.9445, -77.4558029),           // Ashburn, Virginia, USA
+            AwsRegion::UsEast2 => Location::new(39.958993960575775, -83.00219086148725), // Columbus, Ohio, USA
+            AwsRegion::UsWest1 => Location::new(37.61899948120117, -122.375),    // San Francisco, California, USA
+            AwsRegion::UsWest2 => Location::new(45.540394, -122.949825),         // Hillsboro, Oregon, USA
+            AwsRegion::UsGovEast1 => Location::new(38.9445, -77.4558029),        // Ashburn, Virginia, USA
+            AwsRegion::UsGovWest1 => Location::new(37.61899948120117, -122.375), // San Francisco, California, USA
+        }
     }
 
     pub fn distance_to(&self, to: &Location) -> f64 {

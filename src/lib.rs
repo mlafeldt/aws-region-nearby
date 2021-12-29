@@ -3,7 +3,6 @@
 
 use geoutils::Location;
 use ordered_float::OrderedFloat;
-use strum::IntoEnumIterator;
 
 mod region;
 use region::AwsRegion;
