@@ -3,17 +3,21 @@
 
 use geoutils::Location;
 use ordered_float::OrderedFloat;
+use strum::{EnumProperty, IntoEnumIterator};
 
-mod regions;
-use regions::{AwsRegion, AWS_REGIONS};
+mod region;
+use region::AwsRegion;
 
 pub fn find_region_nearby<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
     let src = Location::new(latitude.into(), longitude.into());
 
-    *AWS_REGIONS
-        .iter()
+    AwsRegion::iter()
         .min_by_key(|region| {
-            let dst = Location::new(region.latitude, region.longitude);
+            let dst = Location::new(
+                // FIXME
+                region.get_str("latitude").unwrap().parse::<f64>().unwrap(),
+                region.get_str("longitude").unwrap().parse::<f64>().unwrap(),
+            );
             OrderedFloat(src.haversine_distance_to(&dst).meters())
         })
         .unwrap()
@@ -76,7 +80,7 @@ mod tests {
     fn test_find_region_nearby() {
         for t in tests().iter() {
             let region = find_region_nearby(t.latitude, t.longitude);
-            assert_eq!(region.name, t.region, "{}", t.city);
+            assert_eq!(region.to_string(), t.region, "{}", t.city);
         }
     }
 }

@@ -9,6 +9,7 @@ edition = "2021"
 [dependencies]
 geoutils = "0.4"
 ordered-float = "2"
+strum = { version = "0.23", features = ["derive"] }
 
 [dev-dependencies]
 pretty_assertions = "1"
