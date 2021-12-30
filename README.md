@@ -6,6 +6,8 @@
 
 A Rust library to find the nearest AWS region to a given location.
 
+Many thanks to [@tobilg](https://gist.github.com/tobilg) for providing the [AWS region coordinates](src/lib.rs).
+
 ## Usage
 
 Use with [AWS SDK for Rust](https://github.com/awslabs/aws-sdk-rust):
