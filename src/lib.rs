@@ -1,6 +1,8 @@
 #![deny(clippy::all, clippy::nursery)]
 #![deny(nonstandard_style, rust_2018_idioms)]
 
+use std::fmt;
+
 use geoutils::Location;
 use ordered_float::OrderedFloat;
 
@@ -135,6 +137,12 @@ impl AwsRegion {
     }
 }
 
+impl fmt::Display for AwsRegion {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "{}", self.name())
+    }
+}
+
 pub fn find_region_nearby<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
     let location = Location::new(latitude.into(), longitude.into());
 
@@ -152,6 +160,12 @@ mod tests {
     fn test_region_name() {
         assert_eq!(AwsRegion::EuCentral1.name(), "eu-central-1");
         assert_eq!(AwsRegion::CnNorthwest1.name(), "cn-northwest-1");
+    }
+
+    #[test]
+    fn test_region_to_string() {
+        assert_eq!(AwsRegion::EuCentral1.to_string(), "eu-central-1");
+        assert_eq!(AwsRegion::CnNorthwest1.to_string(), "cn-northwest-1");
     }
 
     #[test]
