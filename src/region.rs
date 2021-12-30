@@ -130,3 +130,38 @@ impl AwsRegion {
         self.location().haversine_distance_to(to).meters()
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn test_region_name() {
+        assert_eq!(AwsRegion::EuCentral1.name(), "eu-central-1");
+        assert_eq!(AwsRegion::CnNorthwest1.name(), "cn-northwest-1");
+    }
+
+    #[test]
+    fn test_region_location() {
+        let location = AwsRegion::AfSouth1.location();
+        assert_eq!(location, Location::new(-33.9648017883, 18.6016998291));
+        assert_eq!(location.latitude(), -33.9648017883);
+        assert_eq!(location.longitude(), 18.6016998291);
+    }
+
+    #[test]
+    fn test_region_distance_to() {
+        let region = AwsRegion::EuWest1;
+        assert_eq!(region.distance_to(&region.location()), 0.0);
+        assert_eq!(region.distance_to(&AwsRegion::EuWest2.location()), 448_890.249);
+        assert_eq!(region.distance_to(&AwsRegion::EuWest3.location()), 784_967.795);
+    }
+
+    #[test]
+    fn test_region_iter() {
+        assert_eq!(AwsRegion::iter().next().unwrap().name(), "af-south-1");
+        assert_eq!(AwsRegion::iter().last().unwrap().name(), "us-gov-west-1");
+        assert_eq!(AwsRegion::iter().count(), 26);
+    }
+}
