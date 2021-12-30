@@ -181,7 +181,7 @@ mod tests {
         city: &'static str,
         latitude: f64,
         longitude: f64,
-        region: &'static str,
+        region: AwsRegion,
     }
 
     fn nearby_tests() -> Vec<NearbyTest> {
@@ -190,37 +190,37 @@ mod tests {
                 city: "Hamburg",
                 latitude: 53.5511,
                 longitude: 9.9937,
-                region: "eu-central-1",
+                region: AwsRegion::EuCentral1,
             },
             NearbyTest {
                 city: "Manchester",
                 latitude: 53.4808,
                 longitude: -2.2426,
-                region: "eu-west-2",
+                region: AwsRegion::EuWest2,
             },
             NearbyTest {
                 city: "Las Vegas",
                 latitude: 36.1699,
                 longitude: -115.1398,
-                region: "us-west-1",
+                region: AwsRegion::UsWest1,
             },
             NearbyTest {
                 city: "Boston",
                 latitude: 42.3601,
                 longitude: -71.0589,
-                region: "ca-central-1",
+                region: AwsRegion::CaCentral1,
             },
             NearbyTest {
                 city: "Kyoto",
                 latitude: 35.0116,
                 longitude: 135.7681,
-                region: "ap-northeast-3",
+                region: AwsRegion::ApNortheast3,
             },
             NearbyTest {
                 city: "Cairo",
                 latitude: 30.0444,
                 longitude: 31.2357,
-                region: "me-south-1",
+                region: AwsRegion::MeSouth1,
             },
         ]
     }
@@ -229,7 +229,7 @@ mod tests {
     fn test_find_region_nearby() {
         for t in nearby_tests().iter() {
             let region = find_region_nearby(t.latitude, t.longitude);
-            assert_eq!(region.name(), t.region, "{}", t.city);
+            assert_eq!(region, t.region, "{}", t.city);
         }
     }
 }
