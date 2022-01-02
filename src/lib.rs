@@ -1,42 +1,102 @@
+//! A Rust library to find the nearest AWS region to a given location.
+//!
+//! Especially useful when you run code at the edge and want fast access to
+//! regional AWS services, e.g. Cloudflare Workers accessing DynamoDB global
+//! tables.
+
 #![deny(clippy::all, clippy::nursery)]
 #![deny(nonstandard_style, rust_2018_idioms)]
+#![deny(missing_docs, missing_debug_implementations)]
 
 use std::fmt;
 
 use geoutils::Location;
 use ordered_float::OrderedFloat;
 
+/// An AWS region.
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum AwsRegion {
+    /// Africa (Cape Town)
     AfSouth1,
+
+    /// Asia Pacific (Hong Kong)
     ApEast1,
+
+    /// Asia Pacific (Tokyo)
     ApNortheast1,
+
+    /// Asia Pacific (Seoul)
     ApNortheast2,
+
+    /// Asia Pacific (Osaka)
     ApNortheast3,
+
+    /// Asia Pacific (Mumbai)
     ApSouth1,
+
+    /// Asia Pacific (Singapore)
     ApSoutheast1,
+
+    /// Asia Pacific (Sydney)
     ApSoutheast2,
+
+    /// Asia Pacific (Jakarta)
     ApSoutheast3,
+
+    /// Canada (Central)
     CaCentral1,
+
+    /// AWS China (Beijing)
     CnNorth1,
+
+    /// AWS China (Ningxia)
     CnNorthwest1,
+
+    /// Europe (Frankfurt)
     EuCentral1,
+
+    /// Europe (Stockholm)
     EuNorth1,
+
+    /// Europe (Milan)
     EuSouth1,
+
+    /// Europe (Ireland)
     EuWest1,
+
+    /// Europe (London)
     EuWest2,
+
+    /// Europe (Paris)
     EuWest3,
+
+    /// Middle East (Bahrain)
     MeSouth1,
+
+    /// South America (São Paulo)
     SaEast1,
+
+    /// US East (N. Virginia)
     UsEast1,
+
+    /// US East (Ohio)
     UsEast2,
+
+    /// US West (N. California)
     UsWest1,
+
+    /// US West (Oregon)
     UsWest2,
+
+    /// AWS GovCloud (US-East)
     UsGovEast1,
+
+    /// AWS GovCloud (US-West)
     UsGovWest1,
 }
 
 impl AwsRegion {
+    /// Returns an iterator over all regions.
     pub fn iter() -> impl Iterator<Item = Self> {
         const REGIONS: [AwsRegion; 26] = [
             AwsRegion::AfSouth1,
@@ -69,6 +129,7 @@ impl AwsRegion {
         REGIONS.iter().copied()
     }
 
+    /// Returns the name of the region.
     pub const fn name(&self) -> &'static str {
         match *self {
             AwsRegion::AfSouth1 => "af-south-1",
@@ -100,6 +161,7 @@ impl AwsRegion {
         }
     }
 
+    /// Returns the location of the region.
     // Coordinates taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
     pub fn location(&self) -> Location {
         match *self {
@@ -122,7 +184,7 @@ impl AwsRegion {
             AwsRegion::EuWest2 => Location::new(51.4775, -0.461389),             // London, United Kingdom
             AwsRegion::EuWest3 => Location::new(49.012798, 2.55),                // Paris, France
             AwsRegion::MeSouth1 => Location::new(26.27079963684082, 50.63359832763672), // Manama, Bahrain
-            AwsRegion::SaEast1 => Location::new(-23.435556, -46.473056),         // Sao Paulo, Brazil
+            AwsRegion::SaEast1 => Location::new(-23.435556, -46.473056),         // São Paulo, Brazil
             AwsRegion::UsEast1 => Location::new(38.9445, -77.4558029),           // Ashburn, Virginia, USA
             AwsRegion::UsEast2 => Location::new(39.958993960575775, -83.00219086148725), // Columbus, Ohio, USA
             AwsRegion::UsWest1 => Location::new(37.61899948120117, -122.375),    // San Francisco, California, USA
@@ -132,6 +194,7 @@ impl AwsRegion {
         }
     }
 
+    /// Returns the distance in meters between the region and the given location.
     pub fn distance_to(&self, to: &Location) -> f64 {
         self.location().haversine_distance_to(to).meters()
     }
@@ -143,6 +206,23 @@ impl fmt::Display for AwsRegion {
     }
 }
 
+/// Finds the nearest AWS region to the given location.
+///
+/// Use with [AWS SDK for Rust](https://github.com/awslabs/aws-sdk-rust):
+///
+/// ```ignore
+/// let region = aws_region_nearby::find_region_nearby(latitude, longitude);
+/// let sdk_region = aws_types::region::Region::from_static(region.name());
+/// ```
+///
+/// Use with [Rusoto](https://github.com/rusoto/rusoto):
+///
+/// ```ignore
+/// use std::str::FromStr;
+///
+/// let region = aws_region_nearby::find_region_nearby(latitude, longitude);
+/// let rusoto_region = rusoto_core::Region::from_str(region.name()).unwrap();
+/// ```
 pub fn find_region_nearby<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
     let location = Location::new(latitude.into(), longitude.into());
 

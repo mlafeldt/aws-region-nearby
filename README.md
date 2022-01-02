@@ -6,25 +6,20 @@
 
 A Rust library to find the nearest AWS region to a given location.
 
+Especially useful when you run code at the edge and want fast access to regional AWS services, e.g. Cloudflare Workers accessing DynamoDB global tables. See the [worker example](worker/).
+
 Many thanks to [@tobilg](https://gist.github.com/tobilg) for providing the [AWS region coordinates](src/lib.rs).
 
-## Usage
+## Quickstart
 
-Use with [AWS SDK for Rust](https://github.com/awslabs/aws-sdk-rust):
+Add the crate as a dependency to your `Cargo.toml`:
 
-```rust
-let region = aws_region_nearby::find_region_nearby(latitude, longitude);
-let sdk_region = aws_types::region::Region::from_static(region.name());
+```toml
+[dependencies]
+aws-region-nearby = "=0.0.3-alpha"
 ```
 
-Use with [Rusoto](https://github.com/rusoto/rusoto):
-
-```rust
-use std::str::FromStr;
-
-let region = aws_region_nearby::find_region_nearby(latitude, longitude);
-let rusoto_region = rusoto_core::Region::from_str(region.name()).unwrap();
-```
+Now you can start [finding AWS regions](https://docs.rs/aws-region-nearby).
 
 ## License
 
