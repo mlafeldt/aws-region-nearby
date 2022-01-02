@@ -211,7 +211,7 @@ impl fmt::Display for AwsRegion {
 /// Use with [AWS SDK for Rust](https://github.com/awslabs/aws-sdk-rust):
 ///
 /// ```ignore
-/// let region = aws_region_nearby::find_region_nearby(latitude, longitude);
+/// let region = aws_region_nearby::find_region(latitude, longitude);
 /// let sdk_region = aws_types::region::Region::from_static(region.name());
 /// ```
 ///
@@ -220,10 +220,10 @@ impl fmt::Display for AwsRegion {
 /// ```ignore
 /// use std::str::FromStr;
 ///
-/// let region = aws_region_nearby::find_region_nearby(latitude, longitude);
+/// let region = aws_region_nearby::find_region(latitude, longitude);
 /// let rusoto_region = rusoto_core::Region::from_str(region.name()).unwrap();
 /// ```
-pub fn find_region_nearby<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
+pub fn find_region<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
     let location = Location::new(latitude.into(), longitude.into());
 
     AwsRegion::iter()
@@ -320,9 +320,9 @@ mod tests {
     }
 
     #[test]
-    fn test_find_region_nearby() {
+    fn test_find_region() {
         for t in nearby_tests().iter() {
-            let region = find_region_nearby(t.latitude, t.longitude);
+            let region = find_region(t.latitude, t.longitude);
             assert_eq!(region, t.region, "{}", t.city);
         }
     }
