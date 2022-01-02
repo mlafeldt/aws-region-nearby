@@ -8,7 +8,7 @@ readme = "README.md"
 repository = "https://github.com/mlafeldt/aws-region-nearby"
 documentation = "https://docs.rs/aws-region-nearby/"
 homepage = "https://crates.io/crates/aws-region-nearby"
-keywords = ["aws", "cloud", "edge", "webassembly"]
+keywords = ["aws", "cloudflare", "edge", "webassembly"]
 categories = ["wasm", "network-programming"]
 edition = "2021"
 
