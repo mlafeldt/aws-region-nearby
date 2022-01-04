@@ -1,0 +1,13 @@
+[package]
+name = "aws-region-nearby-sdk"
+version = "0.0.1"
+description = "Example showing how to use aws-region-nearby with different SDKs"
+authors = ["Mathias Lafeldt <mathias.lafeldt@gmail.com>"]
+license = "MIT OR Apache-2.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+aws-region-nearby = { path = "../.." }
+aws-types = { version = "0.3" }
+rusoto_core = "0.47"

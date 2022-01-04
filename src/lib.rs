@@ -207,22 +207,6 @@ impl fmt::Display for AwsRegion {
 }
 
 /// Finds the nearest AWS region to the given location.
-///
-/// Use with [AWS SDK for Rust](https://github.com/awslabs/aws-sdk-rust):
-///
-/// ```ignore
-/// let region = aws_region_nearby::find_region(latitude, longitude);
-/// let sdk_region = aws_types::region::Region::from_static(region.name());
-/// ```
-///
-/// Use with [Rusoto](https://github.com/rusoto/rusoto):
-///
-/// ```ignore
-/// use std::str::FromStr;
-///
-/// let region = aws_region_nearby::find_region(latitude, longitude);
-/// let rusoto_region = rusoto_core::Region::from_str(region.name()).unwrap();
-/// ```
 pub fn find_region<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
     let location = Location::new(latitude.into(), longitude.into());
 
