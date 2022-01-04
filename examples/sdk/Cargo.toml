@@ -1,6 +1,6 @@
 [package]
 name = "aws-region-nearby-sdk"
-version = "0.0.1"
+version = "0.1.0"
 description = "Example showing how to use aws-region-nearby with different SDKs"
 authors = ["Mathias Lafeldt <mathias.lafeldt@gmail.com>"]
 license = "MIT OR Apache-2.0"

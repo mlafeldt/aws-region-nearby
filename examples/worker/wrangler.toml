@@ -1,7 +1,7 @@
 name = "aws-region-nearby"
 type = "javascript"
 workers_dev = true
-compatibility_date = "2021-12-22"
+compatibility_date = "2022-01-04"
 
 [build]
 command = "worker-build --release"
