@@ -6,7 +6,7 @@
 
 A Rust library to find the nearest AWS region to a given location.
 
-Especially useful when you run code at the edge and want fast access to regional AWS services, e.g. Cloudflare Workers accessing DynamoDB global tables. See the [worker example](worker/).
+Especially useful when you run code at the edge and want fast access to regional AWS services, e.g. Cloudflare Workers accessing DynamoDB global tables. See the [worker example](examples/worker).
 
 Many thanks to [@tobilg](https://gist.github.com/tobilg) for providing the [AWS region coordinates](src/lib.rs).
 

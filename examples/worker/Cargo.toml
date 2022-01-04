@@ -12,5 +12,5 @@ path = "worker.rs"
 crate-type = ["cdylib", "rlib"]
 
 [dependencies]
-aws-region-nearby = { path = ".." }
+aws-region-nearby = { path = "../.." }
 worker = "0.0.7"
