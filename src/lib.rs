@@ -215,6 +215,17 @@ pub fn find_region<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
         .unwrap()
 }
 
+/// Finds the nearest AWS region from a list of regions.
+/// Panics if regions is empty.
+pub fn find_region_from_list<T: Into<f64>>(latitude: T, longitude: T, regions: &[AwsRegion]) -> AwsRegion {
+    let location = Location::new(latitude.into(), longitude.into());
+
+    *regions
+        .iter()
+        .min_by_key(|region| OrderedFloat(region.distance_to(&location)))
+        .expect("regions must not be empty")
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -255,59 +266,124 @@ mod tests {
         assert_eq!(AwsRegion::iter().count(), 26);
     }
 
-    struct NearbyTest {
-        city: &'static str,
-        latitude: f64,
-        longitude: f64,
-        region: AwsRegion,
-    }
+    #[test]
+    fn test_find_region() {
+        struct Test {
+            city: &'static str,
+            latitude: f64,
+            longitude: f64,
+            region: AwsRegion,
+        }
 
-    fn nearby_tests() -> Vec<NearbyTest> {
-        vec![
-            NearbyTest {
+        let tests = vec![
+            Test {
                 city: "Hamburg",
                 latitude: 53.5511,
                 longitude: 9.9937,
                 region: AwsRegion::EuCentral1,
             },
-            NearbyTest {
+            Test {
                 city: "Manchester",
                 latitude: 53.4808,
                 longitude: -2.2426,
                 region: AwsRegion::EuWest2,
             },
-            NearbyTest {
+            Test {
                 city: "Las Vegas",
                 latitude: 36.1699,
                 longitude: -115.1398,
                 region: AwsRegion::UsWest1,
             },
-            NearbyTest {
+            Test {
                 city: "Boston",
                 latitude: 42.3601,
                 longitude: -71.0589,
                 region: AwsRegion::CaCentral1,
             },
-            NearbyTest {
+            Test {
                 city: "Kyoto",
                 latitude: 35.0116,
                 longitude: 135.7681,
                 region: AwsRegion::ApNortheast3,
             },
-            NearbyTest {
+            Test {
                 city: "Cairo",
                 latitude: 30.0444,
                 longitude: 31.2357,
                 region: AwsRegion::MeSouth1,
             },
-        ]
-    }
+        ];
 
-    #[test]
-    fn test_find_region() {
-        for t in nearby_tests().iter() {
+        for t in tests.iter() {
             let region = find_region(t.latitude, t.longitude);
             assert_eq!(region, t.region, "{}", t.city);
         }
+    }
+
+    #[test]
+    fn test_find_region_from_list() {
+        struct Test {
+            city: &'static str,
+            latitude: f64,
+            longitude: f64,
+            list: Vec<AwsRegion>,
+            region: AwsRegion,
+        }
+
+        let tests = vec![
+            Test {
+                city: "Hamburg",
+                latitude: 53.5511,
+                longitude: 9.9937,
+                list: vec![AwsRegion::EuWest1, AwsRegion::EuCentral1, AwsRegion::EuSouth1],
+                region: AwsRegion::EuCentral1,
+            },
+            Test {
+                city: "Manchester",
+                latitude: 53.4808,
+                longitude: -2.2426,
+                list: vec![AwsRegion::UsEast1, AwsRegion::UsWest1],
+                region: AwsRegion::UsEast1,
+            },
+            Test {
+                city: "Las Vegas",
+                latitude: 36.1699,
+                longitude: -115.1398,
+                list: vec![AwsRegion::UsGovEast1, AwsRegion::UsGovWest1],
+                region: AwsRegion::UsGovWest1,
+            },
+            Test {
+                city: "Boston",
+                latitude: 42.3601,
+                longitude: -71.0589,
+                list: vec![AwsRegion::CaCentral1, AwsRegion::CaCentral1],
+                region: AwsRegion::CaCentral1,
+            },
+            Test {
+                city: "Kyoto",
+                latitude: 35.0116,
+                longitude: 135.7681,
+                list: vec![AwsRegion::ApEast1, AwsRegion::ApNortheast3],
+                region: AwsRegion::ApNortheast3,
+            },
+            Test {
+                city: "Cairo",
+                latitude: 30.0444,
+                longitude: 31.2357,
+                list: vec![AwsRegion::EuWest2, AwsRegion::EuWest3],
+                region: AwsRegion::EuWest3,
+            },
+        ];
+
+        for t in tests.iter() {
+            let region = find_region_from_list(t.latitude, t.longitude, &t.list);
+            assert_eq!(region, t.region, "{}", t.city);
+        }
+    }
+
+    #[test]
+    #[should_panic(expected = "regions must not be empty")]
+    fn test_find_region_from_empty_list() {
+        find_region_from_list(0, 0, &[]);
     }
 }

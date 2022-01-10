@@ -20,10 +20,20 @@ fn aws_sdk_example(latitude: f64, longitude: f64) {
 }
 
 fn rusoto_example(latitude: f64, longitude: f64) {
+    use aws_region_nearby::{find_region_from_list, AwsRegion};
     use rusoto_core::Region;
     use std::str::FromStr;
 
-    let region = aws_region_nearby::find_region(latitude, longitude);
+    let region = find_region_from_list(
+        latitude,
+        longitude,
+        &[
+            AwsRegion::UsWest1,
+            AwsRegion::UsEast1,
+            AwsRegion::EuCentral1,
+            AwsRegion::ApNortheast1,
+        ],
+    );
     let rusoto_region = Region::from_str(region.name()).unwrap();
 
     println!("Rusoto region = {:?}", rusoto_region);
