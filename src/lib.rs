@@ -9,9 +9,18 @@
 #![deny(missing_docs, missing_debug_implementations)]
 
 use std::fmt;
+use std::str::FromStr;
 
 use geoutils::Location;
 use ordered_float::OrderedFloat;
+
+/// The errors returned by the library.
+#[derive(thiserror::Error, Debug, PartialEq)]
+pub enum Error {
+    /// An invalid AWS region name was provided.
+    #[error("invalid AWS region")]
+    InvalidRegion,
+}
 
 /// An AWS region.
 #[derive(Debug, Copy, Clone, PartialEq)]
@@ -206,6 +215,50 @@ impl fmt::Display for AwsRegion {
     }
 }
 
+impl FromStr for AwsRegion {
+    type Err = crate::Error;
+
+    fn from_str(s: &str) -> Result<Self, crate::Error> {
+        match s.to_lowercase().as_ref() {
+            "af-south-1" => Ok(Self::AfSouth1),
+            "ap-east-1" => Ok(Self::ApEast1),
+            "ap-northeast-1" => Ok(Self::ApNortheast1),
+            "ap-northeast-2" => Ok(Self::ApNortheast2),
+            "ap-northeast-3" => Ok(Self::ApNortheast3),
+            "ap-south-1" => Ok(Self::ApSouth1),
+            "ap-southeast-1" => Ok(Self::ApSoutheast1),
+            "ap-southeast-2" => Ok(Self::ApSoutheast2),
+            "ap-southeast-3" => Ok(Self::ApSoutheast3),
+            "ca-central-1" => Ok(Self::CaCentral1),
+            "cn-north-1" => Ok(Self::CnNorth1),
+            "cn-northwest-1" => Ok(Self::CnNorthwest1),
+            "eu-central-1" => Ok(Self::EuCentral1),
+            "eu-north-1" => Ok(Self::EuNorth1),
+            "eu-south-1" => Ok(Self::EuSouth1),
+            "eu-west-1" => Ok(Self::EuWest1),
+            "eu-west-2" => Ok(Self::EuWest2),
+            "eu-west-3" => Ok(Self::EuWest3),
+            "me-south-1" => Ok(Self::MeSouth1),
+            "sa-east-1" => Ok(Self::SaEast1),
+            "us-east-1" => Ok(Self::UsEast1),
+            "us-east-2" => Ok(Self::UsEast2),
+            "us-west-1" => Ok(Self::UsWest1),
+            "us-west-2" => Ok(Self::UsWest2),
+            "us-gov-east-1" => Ok(Self::UsGovEast1),
+            "us-gov-west-1" => Ok(Self::UsGovWest1),
+            _ => Err(Error::InvalidRegion),
+        }
+    }
+}
+
+impl TryFrom<&str> for AwsRegion {
+    type Error = crate::Error;
+
+    fn try_from(s: &str) -> Result<Self, crate::Error> {
+        s.parse()
+    }
+}
+
 /// Finds the nearest AWS region to the given location.
 pub fn find_region<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
     let location = Location::new(latitude.into(), longitude.into());
@@ -241,6 +294,15 @@ mod tests {
     fn test_region_to_string() {
         assert_eq!(AwsRegion::EuCentral1.to_string(), "eu-central-1");
         assert_eq!(AwsRegion::CnNorthwest1.to_string(), "cn-northwest-1");
+    }
+
+    #[test]
+    fn test_region_from_str() {
+        assert_eq!(AwsRegion::from_str("eu-central-1"), Ok(AwsRegion::EuCentral1));
+        assert_eq!("EU-CENTRAL-1".parse(), Ok(AwsRegion::EuCentral1));
+        assert_eq!("eu-central-1".try_into(), Ok(AwsRegion::EuCentral1));
+
+        assert_eq!(AwsRegion::from_str("some-fake-region"), Err(Error::InvalidRegion));
     }
 
     #[test]

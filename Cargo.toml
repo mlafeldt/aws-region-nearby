@@ -15,6 +15,7 @@ edition = "2021"
 [dependencies]
 geoutils = "0.4"
 ordered-float = "2"
+thiserror = "1"
 
 [dev-dependencies]
 pretty_assertions = "1"

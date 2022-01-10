@@ -24,16 +24,12 @@ fn rusoto_example(latitude: f64, longitude: f64) {
     use rusoto_core::Region;
     use std::str::FromStr;
 
-    let region = find_region_from_list(
-        latitude,
-        longitude,
-        &[
-            AwsRegion::UsWest1,
-            AwsRegion::UsEast1,
-            AwsRegion::EuCentral1,
-            AwsRegion::ApNortheast1,
-        ],
-    );
+    let regions: Vec<AwsRegion> = vec!["us-west-1", "us-east-1", "eu-central-1", "ap-northeast-1"]
+        .iter()
+        .map(|r| r.parse().unwrap())
+        .collect();
+
+    let region = find_region_from_list(latitude, longitude, &regions);
     let rusoto_region = Region::from_str(region.name()).unwrap();
 
     println!("Rusoto region = {:?}", rusoto_region);
