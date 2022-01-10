@@ -211,7 +211,7 @@ impl AwsRegion {
 
 impl fmt::Display for AwsRegion {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(f, "{}", self.name())
+        f.write_str(self.name())
     }
 }
 
