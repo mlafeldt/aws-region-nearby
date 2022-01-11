@@ -11,26 +11,26 @@ fn main() {
 }
 
 fn aws_sdk_example(latitude: f64, longitude: f64) {
+    use aws_region_nearby::find_region;
     use aws_types::region::Region;
 
-    let region = aws_region_nearby::find_region(latitude, longitude);
-    let sdk_region = Region::from_static(region.name());
+    let region = Region::from_static(find_region(latitude, longitude).name());
 
-    println!("AWS SDK region = {:?}", sdk_region);
+    println!("AWS SDK region = {:?}", region);
 }
 
 fn rusoto_example(latitude: f64, longitude: f64) {
     use aws_region_nearby::{find_region_from_list, AwsRegion};
-    use rusoto_core::Region;
-    use std::str::FromStr;
 
     let regions: Vec<AwsRegion> = vec!["us-west-1", "us-east-1", "eu-central-1", "ap-northeast-1"]
         .iter()
         .map(|r| r.parse().unwrap())
         .collect();
 
-    let region = find_region_from_list(latitude, longitude, &regions);
-    let rusoto_region = Region::from_str(region.name()).unwrap();
+    let region: rusoto_core::Region = find_region_from_list(latitude, longitude, &regions)
+        .name()
+        .parse()
+        .unwrap();
 
-    println!("Rusoto region = {:?}", rusoto_region);
+    println!("Rusoto region = {:?}", region);
 }
