@@ -22,12 +22,12 @@ fn aws_sdk_example(latitude: f64, longitude: f64) {
 fn rusoto_example(latitude: f64, longitude: f64) {
     use aws_region_nearby::{find_region_from_list, AwsRegion};
 
-    let regions: Vec<AwsRegion> = vec!["us-west-1", "us-east-1", "eu-central-1", "ap-northeast-1"]
+    let replica_regions: Vec<AwsRegion> = vec!["us-west-1", "us-east-1", "eu-central-1", "ap-northeast-1"]
         .iter()
         .map(|r| r.parse().unwrap())
         .collect();
 
-    let region: rusoto_core::Region = find_region_from_list(latitude, longitude, &regions)
+    let region: rusoto_core::Region = find_region_from_list(latitude, longitude, &replica_regions)
         .name()
         .parse()
         .unwrap();
