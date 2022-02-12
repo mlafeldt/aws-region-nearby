@@ -1,7 +1,7 @@
 use worker::*;
 
 #[event(fetch)]
-pub async fn main(req: Request, env: Env) -> Result<Response> {
+pub async fn main(req: Request, env: Env, _ctx: Context) -> Result<Response> {
     Router::new()
         .get("/", |req, _ctx| {
             let (latitude, longitude) = req.cf().coordinates().unwrap();
