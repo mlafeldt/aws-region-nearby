@@ -197,7 +197,7 @@ impl DenoRegion {
 
     /// Returns the location of the region.
     pub fn location(&self) -> Location {
-        unimplemented!()
+        Location::new(0, 0) // TODO
     }
 
     /// Returns the distance in meters between the region and the given location.
@@ -261,5 +261,58 @@ impl TryFrom<&str> for DenoRegion {
 
     fn try_from(s: &str) -> Result<Self, crate::Error> {
         s.parse()
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use pretty_assertions::assert_eq;
+
+    #[test]
+    fn test_region_name() {
+        assert_eq!(DenoRegion::EuropeCentral2.name(), "europe-central2");
+        assert_eq!(DenoRegion::UsSouth1.name(), "us-south1");
+    }
+
+    #[test]
+    fn test_region_to_string() {
+        assert_eq!(DenoRegion::EuropeCentral2.to_string(), "europe-central2");
+        assert_eq!(DenoRegion::UsSouth1.to_string(), "us-south1");
+    }
+
+    #[test]
+    fn test_region_from_str() {
+        assert_eq!(DenoRegion::from_str("europe-central2"), Ok(DenoRegion::EuropeCentral2));
+        assert_eq!("EUROPE-CENTRAL2".parse(), Ok(DenoRegion::EuropeCentral2));
+        assert_eq!("europe-central2".try_into(), Ok(DenoRegion::EuropeCentral2));
+
+        assert_eq!(
+            DenoRegion::from_str("some-fake-region"),
+            Err(crate::Error::InvalidDenoRegion)
+        );
+    }
+
+    #[test]
+    fn test_region_location() {
+        let location = DenoRegion::SouthamericaEast1.location();
+        assert_eq!(location, Location::new(0, 0));
+        assert_eq!(location.latitude(), 0.0);
+        assert_eq!(location.longitude(), 0.0);
+    }
+
+    #[test]
+    fn test_region_distance_to() {
+        let region = DenoRegion::AustraliaSoutheast1;
+        assert_eq!(region.distance_to(&region.location()), 0.0);
+        assert_eq!(region.distance_to(&DenoRegion::AustraliaSoutheast2.location()), 0.0);
+        assert_eq!(region.distance_to(&DenoRegion::AsiaEast1.location()), 0.0);
+    }
+
+    #[test]
+    fn test_region_iter() {
+        assert_eq!(DenoRegion::iter().next().unwrap().name(), "asia-east1");
+        assert_eq!(DenoRegion::iter().last().unwrap().name(), "us-west4");
+        assert_eq!(DenoRegion::iter().count(), 34);
     }
 }
