@@ -3,7 +3,7 @@
 pub enum Error {
     /// An invalid AWS region name was provided.
     #[error("invalid AWS region")]
-    InvalidRegion,
+    InvalidAwsRegion,
 
     /// An invalid Deno region name was provided.
     #[error("invalid Deno region")]
