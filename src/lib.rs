@@ -14,13 +14,10 @@ use std::str::FromStr;
 use geoutils::Location;
 use ordered_float::OrderedFloat;
 
-/// The errors returned by the library.
-#[derive(thiserror::Error, Debug, PartialEq)]
-pub enum Error {
-    /// An invalid AWS region name was provided.
-    #[error("invalid AWS region")]
-    InvalidRegion,
-}
+mod deno;
+mod error;
+
+pub use error::Error;
 
 /// An AWS region.
 #[derive(Debug, Copy, Clone, PartialEq)]
