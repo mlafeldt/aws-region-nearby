@@ -7,6 +7,8 @@ use std::str::FromStr;
 
 use geoutils::Location;
 
+use crate::Error;
+
 /// A Deno region.
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum DenoRegion {
@@ -213,9 +215,9 @@ impl fmt::Display for DenoRegion {
 }
 
 impl FromStr for DenoRegion {
-    type Err = crate::Error;
+    type Err = Error;
 
-    fn from_str(s: &str) -> Result<Self, crate::Error> {
+    fn from_str(s: &str) -> Result<Self, Error> {
         match s.to_lowercase().as_ref() {
             "asia-east1" => Ok(Self::AsiaEast1),
             "asia-east2" => Ok(Self::AsiaEast2),
@@ -251,15 +253,15 @@ impl FromStr for DenoRegion {
             "us-west2" => Ok(Self::UsWest2),
             "us-west3" => Ok(Self::UsWest3),
             "us-west4" => Ok(Self::UsWest4),
-            _ => Err(crate::Error::InvalidDenoRegion),
+            _ => Err(Error::InvalidDenoRegion),
         }
     }
 }
 
 impl TryFrom<&str> for DenoRegion {
-    type Error = crate::Error;
+    type Error = Error;
 
-    fn try_from(s: &str) -> Result<Self, crate::Error> {
+    fn try_from(s: &str) -> Result<Self, Error> {
         s.parse()
     }
 }
@@ -287,10 +289,7 @@ mod tests {
         assert_eq!("EUROPE-CENTRAL2".parse(), Ok(DenoRegion::EuropeCentral2));
         assert_eq!("europe-central2".try_into(), Ok(DenoRegion::EuropeCentral2));
 
-        assert_eq!(
-            DenoRegion::from_str("some-fake-region"),
-            Err(crate::Error::InvalidDenoRegion)
-        );
+        assert_eq!(DenoRegion::from_str("some-fake-region"), Err(Error::InvalidDenoRegion));
     }
 
     #[test]

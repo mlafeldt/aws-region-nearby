@@ -213,9 +213,9 @@ impl fmt::Display for AwsRegion {
 }
 
 impl FromStr for AwsRegion {
-    type Err = crate::Error;
+    type Err = Error;
 
-    fn from_str(s: &str) -> Result<Self, crate::Error> {
+    fn from_str(s: &str) -> Result<Self, Error> {
         match s.to_lowercase().as_ref() {
             "af-south-1" => Ok(Self::AfSouth1),
             "ap-east-1" => Ok(Self::ApEast1),
@@ -249,9 +249,9 @@ impl FromStr for AwsRegion {
 }
 
 impl TryFrom<&str> for AwsRegion {
-    type Error = crate::Error;
+    type Error = Error;
 
-    fn try_from(s: &str) -> Result<Self, crate::Error> {
+    fn try_from(s: &str) -> Result<Self, Error> {
         s.parse()
     }
 }
