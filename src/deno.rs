@@ -9,7 +9,7 @@ use geoutils::Location;
 
 use crate::Error;
 
-/// A Deno region.
+/// A Deno Deploy region.
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub enum DenoRegion {
     /// Taiwan
