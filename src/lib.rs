@@ -14,10 +14,13 @@ use std::str::FromStr;
 use geoutils::Location;
 use ordered_float::OrderedFloat;
 
-mod deno;
 mod error;
-
 pub use error::Error;
+
+#[cfg(feature = "deno")]
+mod deno;
+#[cfg(feature = "deno")]
+pub use deno::*;
 
 /// An AWS region.
 #[derive(Debug, Copy, Clone, PartialEq)]

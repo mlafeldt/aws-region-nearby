@@ -6,6 +6,7 @@ pub enum Error {
     InvalidAwsRegion,
 
     /// An invalid Deno region name was provided.
+    #[cfg(feature = "deno")]
     #[error("invalid Deno region")]
     InvalidDenoRegion,
 }
