@@ -15,7 +15,7 @@ use geoutils::Location;
 use ordered_float::OrderedFloat;
 
 /// The errors returned by the library.
-#[derive(thiserror::Error, Debug, PartialEq)]
+#[derive(thiserror::Error, Debug, PartialEq, Eq)]
 pub enum Error {
     /// An invalid AWS region name was provided.
     #[error("invalid AWS region")]
@@ -23,7 +23,7 @@ pub enum Error {
 }
 
 /// An AWS region.
-#[derive(Debug, Copy, Clone, PartialEq)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq)]
 pub enum AwsRegion {
     /// Africa (Cape Town)
     AfSouth1,
