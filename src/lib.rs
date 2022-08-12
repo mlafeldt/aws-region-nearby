@@ -194,12 +194,10 @@ impl AwsRegion {
             Self::EuWest3 => Location::new(49.012798, 2.55),                // Paris, France
             Self::MeSouth1 => Location::new(26.27079963684082, 50.63359832763672), // Manama, Bahrain
             Self::SaEast1 => Location::new(-23.435556, -46.473056),         // São Paulo, Brazil
-            Self::UsEast1 => Location::new(38.9445, -77.4558029),           // Ashburn, Virginia, USA
+            Self::UsEast1 | Self::UsGovEast1 => Location::new(38.9445, -77.4558029), // Ashburn, Virginia, USA
             Self::UsEast2 => Location::new(39.958993960575775, -83.00219086148725), // Columbus, Ohio, USA
-            Self::UsWest1 => Location::new(37.61899948120117, -122.375),    // San Francisco, California, USA
-            Self::UsWest2 => Location::new(45.540394, -122.949825),         // Hillsboro, Oregon, USA
-            Self::UsGovEast1 => Location::new(38.9445, -77.4558029),        // Ashburn, Virginia, USA
-            Self::UsGovWest1 => Location::new(37.61899948120117, -122.375), // San Francisco, California, USA
+            Self::UsWest1 | Self::UsGovWest1 => Location::new(37.61899948120117, -122.375), // San Francisco, California, USA
+            Self::UsWest2 => Location::new(45.540394, -122.949825),                         // Hillsboro, Oregon, USA
         }
     }
 
@@ -265,10 +263,13 @@ pub fn find_region<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
 
     AwsRegion::iter()
         .min_by_key(|region| OrderedFloat(region.distance_to(&location)))
-        .unwrap()
+        .expect("iterator cannot be empty")
 }
 
 /// Finds the nearest AWS region from a list of regions.
+///
+/// # Panics
+///
 /// Panics if regions is empty.
 pub fn find_region_from_list<T: Into<f64>>(latitude: T, longitude: T, regions: &[AwsRegion]) -> AwsRegion {
     let location = Location::new(latitude.into(), longitude.into());
