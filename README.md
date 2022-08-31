@@ -25,6 +25,6 @@ Now you can start [finding AWS regions](https://docs.rs/aws-region-nearby).
 
 ## License
 
-Copyright (c) 2021 Mathias Lafeldt
+Copyright (c) 2021-2022 Mathias Lafeldt
 
 Licensed under the [Apache License, Version 2.0](LICENSE-APACHE) or the [MIT license](LICENSE-MIT), at your option.
