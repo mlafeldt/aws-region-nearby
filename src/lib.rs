@@ -8,19 +8,14 @@
 #![deny(nonstandard_style, rust_2018_idioms)]
 #![deny(missing_docs, missing_debug_implementations)]
 
+mod error;
+pub use error::Error;
+
 use std::fmt;
 use std::str::FromStr;
 
 use geoutils::Location;
 use ordered_float::OrderedFloat;
-
-/// The errors returned by the library.
-#[derive(thiserror::Error, Debug, PartialEq, Eq)]
-pub enum Error {
-    /// An invalid AWS region name was provided.
-    #[error("invalid AWS region")]
-    InvalidRegion,
-}
 
 /// An AWS region.
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
@@ -214,9 +209,9 @@ impl fmt::Display for AwsRegion {
 }
 
 impl FromStr for AwsRegion {
-    type Err = crate::Error;
+    type Err = Error;
 
-    fn from_str(s: &str) -> Result<Self, crate::Error> {
+    fn from_str(s: &str) -> Result<Self, Error> {
         match s.to_lowercase().as_ref() {
             "af-south-1" => Ok(Self::AfSouth1),
             "ap-east-1" => Ok(Self::ApEast1),
@@ -250,9 +245,9 @@ impl FromStr for AwsRegion {
 }
 
 impl TryFrom<&str> for AwsRegion {
-    type Error = crate::Error;
+    type Error = Error;
 
-    fn try_from(s: &str) -> Result<Self, crate::Error> {
+    fn try_from(s: &str) -> Result<Self, Error> {
         s.parse()
     }
 }
