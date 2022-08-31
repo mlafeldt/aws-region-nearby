@@ -156,32 +156,32 @@ impl AwsRegion {
 
     /// Returns the location of the region.
     // Coordinates taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
-    pub fn location(&self) -> Location {
+    pub const fn location(&self) -> Location {
         match *self {
-            Self::AfSouth1 => Location::new(-33.9648017883, 18.6016998291), // Cape Town, South Africa
-            Self::ApEast1 => Location::new(22.308901, 113.915001),          // Hong Kong, China
-            Self::ApNortheast1 => Location::new(35.764702, 140.386002),     // Tokyo, Japan
-            Self::ApNortheast2 => Location::new(37.46910095214844, 126.45099639892578), // Seoul, South Korea
-            Self::ApNortheast3 => Location::new(34.42729949951172, 135.24400329589844), // Osaka, Japan
-            Self::ApSouth1 => Location::new(19.0886993408, 72.8678970337),  // Mumbai, India
-            Self::ApSoutheast1 => Location::new(1.35019, 103.994003),       // Singapore
-            Self::ApSoutheast2 => Location::new(-33.94609832763672, 151.177001953125), // Syndney, Australia
-            Self::ApSoutheast3 => Location::new(-6.125556, 106.655833),     // Jakarta, Indonesia
-            Self::CaCentral1 => Location::new(45.470556, -73.740833),       // Montreal, Canada
-            Self::CnNorth1 => Location::new(40.080101013183594, 116.58499908447266), // Beijing, China
-            Self::CnNorthwest1 => Location::new(38.321667, 106.3925),       // Yinchuan, China
-            Self::EuCentral1 => Location::new(50.033333, 8.570556),         // Frankfurt, Germany
-            Self::EuNorth1 => Location::new(59.651901245117, 17.918600082397), // Stockholm, Sweden
-            Self::EuSouth1 => Location::new(45.6306, 8.72811),              // Milan, Italy
-            Self::EuWest1 => Location::new(53.421299, -6.27007),            // Dublin, Ireland
-            Self::EuWest2 => Location::new(51.4775, -0.461389),             // London, United Kingdom
-            Self::EuWest3 => Location::new(49.012798, 2.55),                // Paris, France
-            Self::MeSouth1 => Location::new(26.27079963684082, 50.63359832763672), // Manama, Bahrain
-            Self::SaEast1 => Location::new(-23.435556, -46.473056),         // São Paulo, Brazil
-            Self::UsEast1 | Self::UsGovEast1 => Location::new(38.9445, -77.4558029), // Ashburn, Virginia, USA
-            Self::UsEast2 => Location::new(39.958993960575775, -83.00219086148725), // Columbus, Ohio, USA
-            Self::UsWest1 | Self::UsGovWest1 => Location::new(37.61899948120117, -122.375), // San Francisco, California, USA
-            Self::UsWest2 => Location::new(45.540394, -122.949825),                         // Hillsboro, Oregon, USA
+            Self::AfSouth1 => Location::new_const(-33.9648017883, 18.6016998291), // Cape Town, South Africa
+            Self::ApEast1 => Location::new_const(22.308901, 113.915001),          // Hong Kong, China
+            Self::ApNortheast1 => Location::new_const(35.764702, 140.386002),     // Tokyo, Japan
+            Self::ApNortheast2 => Location::new_const(37.46910095214844, 126.45099639892578), // Seoul, South Korea
+            Self::ApNortheast3 => Location::new_const(34.42729949951172, 135.24400329589844), // Osaka, Japan
+            Self::ApSouth1 => Location::new_const(19.0886993408, 72.8678970337),  // Mumbai, India
+            Self::ApSoutheast1 => Location::new_const(1.35019, 103.994003),       // Singapore
+            Self::ApSoutheast2 => Location::new_const(-33.94609832763672, 151.177001953125), // Syndney, Australia
+            Self::ApSoutheast3 => Location::new_const(-6.125556, 106.655833),     // Jakarta, Indonesia
+            Self::CaCentral1 => Location::new_const(45.470556, -73.740833),       // Montreal, Canada
+            Self::CnNorth1 => Location::new_const(40.080101013183594, 116.58499908447266), // Beijing, China
+            Self::CnNorthwest1 => Location::new_const(38.321667, 106.3925),       // Yinchuan, China
+            Self::EuCentral1 => Location::new_const(50.033333, 8.570556),         // Frankfurt, Germany
+            Self::EuNorth1 => Location::new_const(59.651901245117, 17.918600082397), // Stockholm, Sweden
+            Self::EuSouth1 => Location::new_const(45.6306, 8.72811),              // Milan, Italy
+            Self::EuWest1 => Location::new_const(53.421299, -6.27007),            // Dublin, Ireland
+            Self::EuWest2 => Location::new_const(51.4775, -0.461389),             // London, United Kingdom
+            Self::EuWest3 => Location::new_const(49.012798, 2.55),                // Paris, France
+            Self::MeSouth1 => Location::new_const(26.27079963684082, 50.63359832763672), // Manama, Bahrain
+            Self::SaEast1 => Location::new_const(-23.435556, -46.473056),         // São Paulo, Brazil
+            Self::UsEast1 | Self::UsGovEast1 => Location::new_const(38.9445, -77.4558029), // Ashburn, Virginia, USA
+            Self::UsEast2 => Location::new_const(39.958993960575775, -83.00219086148725), // Columbus, Ohio, USA
+            Self::UsWest1 | Self::UsGovWest1 => Location::new_const(37.61899948120117, -122.375), // San Francisco, California, USA
+            Self::UsWest2 => Location::new_const(45.540394, -122.949825), // Hillsboro, Oregon, USA
         }
     }
 

@@ -13,7 +13,7 @@ categories = ["wasm", "network-programming"]
 edition = "2021"
 
 [dependencies]
-geoutils = "0.5"
+geoutils = "^0.5.1"
 ordered-float = "3"
 thiserror = "1"
 
