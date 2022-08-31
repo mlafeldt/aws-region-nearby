@@ -228,7 +228,7 @@ impl FromStr for AwsRegion {
             "us-west-2" => Ok(Self::UsWest2),
             "us-gov-east-1" => Ok(Self::UsGovEast1),
             "us-gov-west-1" => Ok(Self::UsGovWest1),
-            _ => Err(Error::InvalidRegion),
+            _ => Err(Error::InvalidAwsRegion),
         }
     }
 }
@@ -287,7 +287,7 @@ mod tests {
         assert_eq!("EU-CENTRAL-1".parse(), Ok(AwsRegion::EuCentral1));
         assert_eq!("eu-central-1".try_into(), Ok(AwsRegion::EuCentral1));
 
-        assert_eq!(AwsRegion::from_str("some-fake-region"), Err(Error::InvalidRegion));
+        assert_eq!(AwsRegion::from_str("some-fake-region"), Err(Error::InvalidAwsRegion));
     }
 
     #[test]

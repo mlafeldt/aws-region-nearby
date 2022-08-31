@@ -13,3 +13,8 @@ pub use error::Error;
 
 mod aws;
 pub use aws::*;
+
+#[cfg(feature = "deno")]
+mod deno;
+#[cfg(feature = "deno")]
+pub use deno::*;
