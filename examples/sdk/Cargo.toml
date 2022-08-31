@@ -9,5 +9,5 @@ publish = false
 
 [dependencies]
 aws-region-nearby = { path = "../.." }
-aws-types = "0.11"
+aws-types = "0.47"
 rusoto_core = "0.48"
