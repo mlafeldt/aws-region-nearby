@@ -5,8 +5,6 @@ use aws_region_nearby::*;
 
 #[wasm_bindgen]
 pub async fn handler(_req: Request) -> Result<Response, JsValue> {
-    console_error_panic_hook::set_once();
-
     let deno_region: DenoRegion = env_var("DENO_REGION").unwrap().parse().unwrap();
     let aws_region: AwsRegion = deno_region.into();
 
