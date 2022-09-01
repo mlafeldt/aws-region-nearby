@@ -156,6 +156,7 @@ impl AwsRegion {
 
     /// Returns the location of the region.
     // Coordinates taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
+    // TODO: share city coordinates with DenoRegion
     pub const fn location(&self) -> Location {
         match *self {
             Self::AfSouth1 => Location::new_const(-33.9648017883, 18.6016998291), // Cape Town, South Africa
@@ -361,7 +362,7 @@ mod tests {
             },
         ];
 
-        for t in tests.iter() {
+        for t in tests {
             let region = find_region(t.latitude, t.longitude);
             assert_eq!(region, t.region, "{}", t.city);
         }
@@ -422,7 +423,7 @@ mod tests {
             },
         ];
 
-        for t in tests.iter() {
+        for t in tests {
             let region = find_region_from_list(t.latitude, t.longitude, &t.list);
             assert_eq!(region, t.region, "{}", t.city);
         }
