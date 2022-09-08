@@ -156,6 +156,7 @@ impl AwsRegion {
 
     /// Returns the location of the region.
     // Coordinates taken from https://gist.github.com/tobilg/ba6a5e1635478d13efdea5c1cd8227de
+    // TODO: share city coordinates with DenoRegion
     pub const fn location(&self) -> Location {
         match *self {
             Self::AfSouth1 => Location::new_const(-33.9648017883, 18.6016998291), // Cape Town, South Africa
@@ -228,7 +229,7 @@ impl FromStr for AwsRegion {
             "us-west-2" => Ok(Self::UsWest2),
             "us-gov-east-1" => Ok(Self::UsGovEast1),
             "us-gov-west-1" => Ok(Self::UsGovWest1),
-            _ => Err(Error::InvalidRegion),
+            _ => Err(Error::InvalidAwsRegion),
         }
     }
 }
@@ -287,7 +288,7 @@ mod tests {
         assert_eq!("EU-CENTRAL-1".parse(), Ok(AwsRegion::EuCentral1));
         assert_eq!("eu-central-1".try_into(), Ok(AwsRegion::EuCentral1));
 
-        assert_eq!(AwsRegion::from_str("some-fake-region"), Err(Error::InvalidRegion));
+        assert_eq!(AwsRegion::from_str("some-fake-region"), Err(Error::InvalidAwsRegion));
     }
 
     #[test]
@@ -361,7 +362,7 @@ mod tests {
             },
         ];
 
-        for t in tests.iter() {
+        for t in tests {
             let region = find_region(t.latitude, t.longitude);
             assert_eq!(region, t.region, "{}", t.city);
         }
@@ -422,7 +423,7 @@ mod tests {
             },
         ];
 
-        for t in tests.iter() {
+        for t in tests {
             let region = find_region_from_list(t.latitude, t.longitude, &t.list);
             assert_eq!(region, t.region, "{}", t.city);
         }

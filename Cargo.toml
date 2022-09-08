@@ -19,3 +19,7 @@ thiserror = "1"
 
 [dev-dependencies]
 pretty_assertions = "1"
+
+[features]
+default = ["deno"]
+deno = []

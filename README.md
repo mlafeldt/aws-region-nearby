@@ -8,7 +8,7 @@ A Rust library to find the nearest AWS region to a given location.
 
 Especially useful when you run code at the edge and want fast access to regional AWS services, e.g. [Cloudflare Workers accessing DynamoDB global tables](https://artofserverless.com/aws-region-nearby/).
 
-See [examples](examples) to learn how to use aws-region-nearby with different SDKs and Cloudflare Workers.
+See [examples](examples) to learn how to use aws-region-nearby with different SDKs, Cloudflare Workers, and Deno Deploy.
 
 Many thanks to [@tobilg](https://gist.github.com/tobilg) for providing the [AWS region coordinates](src/lib.rs).
 
