@@ -8,6 +8,7 @@ use crate::Error;
 
 /// An AWS region.
 #[derive(Debug, Copy, Clone, PartialEq, Eq)]
+#[non_exhaustive]
 pub enum AwsRegion {
     /// Africa (Cape Town)
     AfSouth1,
