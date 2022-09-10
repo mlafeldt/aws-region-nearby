@@ -20,6 +20,6 @@ jobs:
       - uses: dtolnay/rust-toolchain@stable
       - uses: taiki-e/install-action@cargo-hack
       - run: cargo fmt -- --check
-      - run: cargo hack clippy --each-feature -- -D warnings
+      - run: cargo hack build --each-feature --all-targets
+      - run: cargo hack clippy --each-feature --all-targets -- -D warnings
       - run: cargo hack test --each-feature
-      - run: cargo hack build --each-feature
