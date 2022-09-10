@@ -2,7 +2,6 @@ use std::fmt;
 use std::str::FromStr;
 
 use geoutils::Location;
-use ordered_float::OrderedFloat;
 
 use crate::aws::AwsRegion;
 use crate::Error;
@@ -249,18 +248,13 @@ impl DenoRegion {
     ///
     /// Panics if regions is empty.
     pub fn find_region_from_list(&self, regions: &[AwsRegion]) -> AwsRegion {
-        *regions
-            .iter()
-            .min_by_key(|aws_region| OrderedFloat(aws_region.distance_to(&self.location())))
-            .expect("regions must not be empty")
+        crate::find_region_from_list(self.location().latitude(), self.location().longitude(), regions)
     }
 }
 
 impl From<DenoRegion> for AwsRegion {
     fn from(region: DenoRegion) -> Self {
-        Self::iter()
-            .min_by_key(|aws_region| OrderedFloat(aws_region.distance_to(&region.location())))
-            .expect("iterator cannot be empty")
+        crate::find_region(region.location().latitude(), region.location().longitude())
     }
 }
 

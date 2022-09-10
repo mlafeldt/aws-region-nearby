@@ -2,7 +2,6 @@ use std::fmt;
 use std::str::FromStr;
 
 use geoutils::Location;
-use ordered_float::OrderedFloat;
 
 use crate::Error;
 
@@ -89,38 +88,39 @@ pub enum AwsRegion {
     UsGovWest1,
 }
 
+const AWS_REGIONS: [AwsRegion; 26] = [
+    AwsRegion::AfSouth1,
+    AwsRegion::ApEast1,
+    AwsRegion::ApNortheast1,
+    AwsRegion::ApNortheast2,
+    AwsRegion::ApNortheast3,
+    AwsRegion::ApSouth1,
+    AwsRegion::ApSoutheast1,
+    AwsRegion::ApSoutheast2,
+    AwsRegion::ApSoutheast3,
+    AwsRegion::CaCentral1,
+    AwsRegion::CnNorth1,
+    AwsRegion::CnNorthwest1,
+    AwsRegion::EuCentral1,
+    AwsRegion::EuNorth1,
+    AwsRegion::EuSouth1,
+    AwsRegion::EuWest1,
+    AwsRegion::EuWest2,
+    AwsRegion::EuWest3,
+    AwsRegion::MeSouth1,
+    AwsRegion::SaEast1,
+    AwsRegion::UsEast1,
+    AwsRegion::UsEast2,
+    AwsRegion::UsWest1,
+    AwsRegion::UsWest2,
+    AwsRegion::UsGovEast1,
+    AwsRegion::UsGovWest1,
+];
+
 impl AwsRegion {
     /// Returns an iterator over all regions.
     pub fn iter() -> impl Iterator<Item = Self> {
-        const REGIONS: [AwsRegion; 26] = [
-            AwsRegion::AfSouth1,
-            AwsRegion::ApEast1,
-            AwsRegion::ApNortheast1,
-            AwsRegion::ApNortheast2,
-            AwsRegion::ApNortheast3,
-            AwsRegion::ApSouth1,
-            AwsRegion::ApSoutheast1,
-            AwsRegion::ApSoutheast2,
-            AwsRegion::ApSoutheast3,
-            AwsRegion::CaCentral1,
-            AwsRegion::CnNorth1,
-            AwsRegion::CnNorthwest1,
-            AwsRegion::EuCentral1,
-            AwsRegion::EuNorth1,
-            AwsRegion::EuSouth1,
-            AwsRegion::EuWest1,
-            AwsRegion::EuWest2,
-            AwsRegion::EuWest3,
-            AwsRegion::MeSouth1,
-            AwsRegion::SaEast1,
-            AwsRegion::UsEast1,
-            AwsRegion::UsEast2,
-            AwsRegion::UsWest1,
-            AwsRegion::UsWest2,
-            AwsRegion::UsGovEast1,
-            AwsRegion::UsGovWest1,
-        ];
-        REGIONS.iter().copied()
+        AWS_REGIONS.iter().copied()
     }
 
     /// Returns the name of the region.
@@ -245,11 +245,7 @@ impl TryFrom<&str> for AwsRegion {
 
 /// Finds the nearest AWS region to the given location.
 pub fn find_region<T: Into<f64>>(latitude: T, longitude: T) -> AwsRegion {
-    let location = Location::new(latitude.into(), longitude.into());
-
-    AwsRegion::iter()
-        .min_by_key(|region| OrderedFloat(region.distance_to(&location)))
-        .expect("iterator cannot be empty")
+    find_region_from_list(latitude, longitude, &AWS_REGIONS)
 }
 
 /// Finds the nearest AWS region from a list of regions.
@@ -262,7 +258,7 @@ pub fn find_region_from_list<T: Into<f64>>(latitude: T, longitude: T, regions: &
 
     *regions
         .iter()
-        .min_by_key(|region| OrderedFloat(region.distance_to(&location)))
+        .min_by_key(|region| ordered_float::OrderedFloat(region.distance_to(&location)))
         .expect("regions must not be empty")
 }
 
