@@ -18,7 +18,7 @@ Add the crate as a dependency to your `Cargo.toml`:
 
 ```toml
 [dependencies]
-aws-region-nearby = "0.1"
+aws-region-nearby = "0.2"
 ```
 
 Now you can start [finding AWS regions](https://docs.rs/aws-region-nearby).
