@@ -63,6 +63,9 @@ pub enum AwsRegion {
     /// Europe (Paris)
     EuWest3,
 
+    /// Middle East (UAE)
+    MeCentral1,
+
     /// Middle East (Bahrain)
     MeSouth1,
 
@@ -88,7 +91,7 @@ pub enum AwsRegion {
     UsGovWest1,
 }
 
-const AWS_REGIONS: [AwsRegion; 26] = [
+const AWS_REGIONS: [AwsRegion; 27] = [
     AwsRegion::AfSouth1,
     AwsRegion::ApEast1,
     AwsRegion::ApNortheast1,
@@ -107,6 +110,7 @@ const AWS_REGIONS: [AwsRegion; 26] = [
     AwsRegion::EuWest1,
     AwsRegion::EuWest2,
     AwsRegion::EuWest3,
+    AwsRegion::MeCentral1,
     AwsRegion::MeSouth1,
     AwsRegion::SaEast1,
     AwsRegion::UsEast1,
@@ -144,6 +148,7 @@ impl AwsRegion {
             Self::EuWest1 => "eu-west-1",
             Self::EuWest2 => "eu-west-2",
             Self::EuWest3 => "eu-west-3",
+            Self::MeCentral1 => "me-central-1",
             Self::MeSouth1 => "me-south-1",
             Self::SaEast1 => "sa-east-1",
             Self::UsEast1 => "us-east-1",
@@ -178,6 +183,7 @@ impl AwsRegion {
             Self::EuWest1 => Location::new_const(53.421299, -6.27007),            // Dublin, Ireland
             Self::EuWest2 => Location::new_const(51.4775, -0.461389),             // London, United Kingdom
             Self::EuWest3 => Location::new_const(49.012798, 2.55),                // Paris, France
+            Self::MeCentral1 => Location::new_const(25.2697, 55.3094),            // Dubai, United Arab Emirates
             Self::MeSouth1 => Location::new_const(26.27079963684082, 50.63359832763672), // Manama, Bahrain
             Self::SaEast1 => Location::new_const(-23.435556, -46.473056),         // São Paulo, Brazil
             Self::UsEast1 | Self::UsGovEast1 => Location::new_const(38.9445, -77.4558029), // Ashburn, Virginia, USA
@@ -308,7 +314,7 @@ mod tests {
     fn test_region_iter() {
         assert_eq!(AwsRegion::iter().next().unwrap().name(), "af-south-1");
         assert_eq!(AwsRegion::iter().last().unwrap().name(), "us-gov-west-1");
-        assert_eq!(AwsRegion::iter().count(), 26);
+        assert_eq!(AwsRegion::iter().count(), 27);
     }
 
     #[test]
