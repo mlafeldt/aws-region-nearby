@@ -1,0 +1,4 @@
+{
+  "app": "yarn --silent ts-node --prefer-ts-exts infra.ts",
+  "requireApproval": "never"
+}
