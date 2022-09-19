@@ -1,0 +1,21 @@
+{
+  "name": "aws-region-nearby-infra",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "watch": "tsc -w",
+    "test": "echo ok"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "2.41",
+    "constructs": "10",
+    "source-map-support": "0.5.21"
+  },
+  "devDependencies": {
+    "@types/node": "17",
+    "aws-cdk": "2.41",
+    "ts-node": "10",
+    "typescript": "4"
+  }
+}

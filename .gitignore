@@ -1,4 +1,7 @@
 build
-dist
-target
 Cargo.lock
+cdk.out
+dist
+node_modules
+target
+yarn.lock
