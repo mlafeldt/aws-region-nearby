@@ -1,7 +1,7 @@
 use tiny_dynamo::{reqwest_transport, Credentials, Table, DB};
 use worker::*;
 
-use aws_region_nearby::*;
+use aws_region_nearby::{find_region_from_list, AwsRegion};
 
 #[event(fetch)]
 pub async fn main(req: Request, env: Env, _ctx: Context) -> Result<Response> {

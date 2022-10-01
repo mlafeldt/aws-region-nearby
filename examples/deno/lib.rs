@@ -3,7 +3,7 @@ use tiny_dynamo::{reqwest_transport, Credentials, Table, DB};
 use wasm_bindgen::prelude::*;
 use web_sys::{Request, Response};
 
-use aws_region_nearby::*;
+use aws_region_nearby::{AwsRegion, DenoRegion};
 
 #[wasm_bindgen]
 pub async fn handler(req: Request) -> Result<Response, JsValue> {
