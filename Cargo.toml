@@ -1,25 +1,8 @@
-[package]
-name = "aws-region-nearby"
-version = "0.2.2"
-description = "Find the nearest AWS region to a given location"
-authors = ["Mathias Lafeldt <mathias.lafeldt@gmail.com>"]
-license = "MIT OR Apache-2.0"
-readme = "README.md"
-repository = "https://github.com/mlafeldt/aws-region-nearby"
-documentation = "https://docs.rs/aws-region-nearby/"
-homepage = "https://crates.io/crates/aws-region-nearby"
-keywords = ["aws", "cloudflare", "deno", "edge", "webassembly"]
-categories = ["wasm", "network-programming"]
-edition = "2021"
-
-[dependencies]
-geoutils = "^0.5.1"
-ordered-float = "3"
-thiserror = "1"
-
-[dev-dependencies]
-pretty_assertions = "1"
-
-[features]
-default = []
-deno = []
+[workspace]
+members = [
+    "aws-region-nearby",
+    "examples/deno",
+    "examples/worker",
+    "examples/sdk",
+]
+resolver = "2"

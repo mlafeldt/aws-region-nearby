@@ -1,5 +1,4 @@
 build
-Cargo.lock
 cdk.out
 dist
 node_modules

@@ -12,7 +12,7 @@ path = "lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]
-aws-region-nearby = { path = "../..", features = ["deno"] }
+aws-region-nearby = { path = "../../aws-region-nearby", features = ["deno"] }
 console_error_panic_hook = "0.1"
 gloo-console = "0.2"
 js-sys = "0.3"
