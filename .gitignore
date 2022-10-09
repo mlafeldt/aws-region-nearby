@@ -3,4 +3,3 @@ cdk.out
 dist
 node_modules
 target
-yarn.lock
