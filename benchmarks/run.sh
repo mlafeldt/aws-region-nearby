@@ -5,8 +5,10 @@ set -e -o pipefail
 HYPERFINE_VERSION=v1.15.0
 EXPORT_FILE="${AWS_REGION}-$(date +%s)"
 
-curl -fsSL https://github.com/sharkdp/hyperfine/releases/download/${HYPERFINE_VERSION}/hyperfine-${HYPERFINE_VERSION}-x86_64-unknown-linux-gnu.tar.gz | \
-    tar -xzvf- --strip-components=1 hyperfine-${HYPERFINE_VERSION}-x86_64-unknown-linux-gnu/hyperfine
+if ! test -x ./hyperfine; then
+    curl -fsSL https://github.com/sharkdp/hyperfine/releases/download/${HYPERFINE_VERSION}/hyperfine-${HYPERFINE_VERSION}-x86_64-unknown-linux-gnu.tar.gz | \
+        tar -xzvf- --strip-components=1 hyperfine-${HYPERFINE_VERSION}-x86_64-unknown-linux-gnu/hyperfine
+fi
 
 ./hyperfine --warmup 10 --runs 500 --shell=none \
     "curl https://aws-region-nearby.mlafeldt.workers.dev" \
