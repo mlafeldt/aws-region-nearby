@@ -1,6 +1,6 @@
 [package]
 name = "aws-region-nearby"
-version = "0.2.2"
+version = "0.2.3"
 description = "Find the nearest AWS region to a given location"
 authors = ["Mathias Lafeldt <mathias.lafeldt@gmail.com>"]
 license = "MIT OR Apache-2.0"
