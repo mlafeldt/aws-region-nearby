@@ -70,6 +70,9 @@ pub enum DenoRegion {
     /// Paris
     EuropeWest9,
 
+    /// Tel Aviv
+    MeWest1,
+
     /// Madrid
     EuropeSouthwest1,
 
@@ -116,7 +119,7 @@ pub enum DenoRegion {
 impl DenoRegion {
     /// Returns an iterator over all regions.
     pub fn iter() -> impl Iterator<Item = Self> {
-        const REGIONS: [DenoRegion; 34] = [
+        const REGIONS: [DenoRegion; 35] = [
             DenoRegion::AsiaEast1,
             DenoRegion::AsiaEast2,
             DenoRegion::AsiaNortheast1,
@@ -137,6 +140,7 @@ impl DenoRegion {
             DenoRegion::EuropeWest6,
             DenoRegion::EuropeWest8,
             DenoRegion::EuropeWest9,
+            DenoRegion::MeWest1,
             DenoRegion::EuropeSouthwest1,
             DenoRegion::NorthamericaNortheast1,
             DenoRegion::NorthamericaNortheast2,
@@ -178,6 +182,7 @@ impl DenoRegion {
             Self::EuropeWest6 => "europe-west6",
             Self::EuropeWest8 => "europe-west8",
             Self::EuropeWest9 => "europe-west9",
+            Self::MeWest1 => "me-west1",
             Self::EuropeSouthwest1 => "europe-southwest1",
             Self::NorthamericaNortheast1 => "northamerica-northeast1",
             Self::NorthamericaNortheast2 => "northamerica-northeast2",
@@ -220,6 +225,7 @@ impl DenoRegion {
             Self::EuropeWest6 => Location::new_const(47.3744, 8.5411), // Zurich, Switzerland
             Self::EuropeWest8 => Location::new_const(45.4669, 9.1900), // Milan, Italy
             Self::EuropeWest9 => Location::new_const(48.8566, 2.3522), // Paris, France
+            Self::MeWest1 => Location::new_const(32.0800, 34.7800),    // Tel Aviv, Israel
             Self::EuropeSouthwest1 => Location::new_const(40.4167, -3.7167), // Madrid, Spain
             Self::NorthamericaNortheast1 => Location::new_const(45.5089, -73.5617), // Montréal, Canada
             Self::NorthamericaNortheast2 => Location::new_const(43.7417, -79.3733), // Toronto, Canada
@@ -289,6 +295,7 @@ impl FromStr for DenoRegion {
             "europe-west6" => Ok(Self::EuropeWest6),
             "europe-west8" => Ok(Self::EuropeWest8),
             "europe-west9" => Ok(Self::EuropeWest9),
+            "me-west1" => Ok(Self::MeWest1),
             "europe-southwest1" => Ok(Self::EuropeSouthwest1),
             "northamerica-northeast1" => Ok(Self::NorthamericaNortheast1),
             "northamerica-northeast2" => Ok(Self::NorthamericaNortheast2),
