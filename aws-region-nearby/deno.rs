@@ -369,7 +369,7 @@ mod tests {
     fn test_region_iter() {
         assert_eq!(DenoRegion::iter().next().unwrap().name(), "asia-east1");
         assert_eq!(DenoRegion::iter().last().unwrap().name(), "us-west4");
-        assert_eq!(DenoRegion::iter().count(), 34);
+        assert_eq!(DenoRegion::iter().count(), 35);
     }
 
     #[test]
