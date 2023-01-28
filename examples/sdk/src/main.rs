@@ -16,7 +16,7 @@ fn aws_sdk_example(latitude: f64, longitude: f64) {
 
     let region = Region::from_static(find_region(latitude, longitude).name());
 
-    println!("AWS SDK region = {:?}", region);
+    println!("AWS SDK region = {region:?}");
 }
 
 fn rusoto_example(latitude: f64, longitude: f64) {
@@ -32,5 +32,5 @@ fn rusoto_example(latitude: f64, longitude: f64) {
         .parse()
         .unwrap();
 
-    println!("Rusoto region = {:?}", region);
+    println!("Rusoto region = {region:?}");
 }
