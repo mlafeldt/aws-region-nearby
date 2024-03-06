@@ -6,6 +6,6 @@ serve: build
 	deno run -A --watch=build index.ts
 
 deploy: build
-	deployctl deploy --project=aws-region-nearby --include=build,index.ts index.ts --prod
+	deployctl deploy --project=aws-region-nearby --include=build,index.ts --entrypoint=index.ts --prod
 
 .PHONY: build
