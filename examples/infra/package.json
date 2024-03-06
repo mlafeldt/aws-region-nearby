@@ -8,14 +8,14 @@
     "test": "echo ok"
   },
   "dependencies": {
-    "aws-cdk-lib": "2.41",
+    "aws-cdk-lib": "2.131",
     "constructs": "10",
     "source-map-support": "0.5.21"
   },
   "devDependencies": {
-    "@types/node": "17",
-    "aws-cdk": "2.41",
+    "@types/node": "20",
+    "aws-cdk": "2.131",
     "ts-node": "10",
-    "typescript": "4"
+    "typescript": "5"
   }
 }
