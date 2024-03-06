@@ -18,7 +18,7 @@ pub async fn main(req: Request, env: Env, _ctx: Context) -> Result<Response> {
         .split(',')
         .map(|r| r.parse().unwrap())
         .collect();
-    let (latitude, longitude) = req.cf().coordinates().unwrap();
+    let (latitude, longitude) = req.cf().unwrap().coordinates().unwrap();
     let aws_region = find_region_from_list(latitude, longitude, &replica_regions);
 
     let db = DB::new(

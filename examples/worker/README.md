@@ -12,5 +12,5 @@ Afterward, configure the environment variables `REPLICA_REGIONS`, `TABLE_NAME`, 
 You can also start a local server for development:
 
 ```console
-wrangler dev
+wrangler dev --remote
 ```

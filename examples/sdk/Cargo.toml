@@ -10,6 +10,6 @@ publish = false
 [dependencies]
 aws-region-nearby = { path = "../../aws-region-nearby" }
 # AWS SDK
-aws-types = "0.47"
+aws-types = "1"
 # Rusoto
 rusoto_core = "0.48"

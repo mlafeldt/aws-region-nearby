@@ -15,7 +15,7 @@ crate-type = ["cdylib", "rlib"]
 aws-region-nearby = { path = "../../aws-region-nearby" }
 console_error_panic_hook = "0.1"
 js-sys = "0.3"
-worker = "0.0.11"
+worker = "0.0.19"
 # https://github.com/softprops/tiny-dynamo/issues/8
 tiny-dynamo = { git = "https://github.com/mlafeldt/tiny-dynamo", branch = "async", features = [
     "reqwest",

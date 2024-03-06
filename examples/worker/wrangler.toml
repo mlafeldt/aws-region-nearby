@@ -1,7 +1,7 @@
 name = "aws-region-nearby"
 main = "build/worker/shim.mjs"
 workers_dev = true
-compatibility_date = "2022-08-31"
+compatibility_date = "2024-03-06"
 
 [build]
 command = "worker-build --release"
